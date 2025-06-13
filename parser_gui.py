@@ -1,13 +1,13 @@
 import tkinter as tk
 from tkinter import messagebox
 from selenium import webdriver
+from selenium.webdriver.safari.service import Service as SafariService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from selenium.webdriver.edge.service import Service as EdgeService
 import pandas as pd
 import os
+
 
 def create_empty_excel(columns: list, filename: str, sheet_name: str = 'Sheet1') -> str:
     output_dir = 'excel_files'
@@ -42,8 +42,10 @@ def run_parser():
         messagebox.showerror("Ошибка", "Введите название лота")
         return
     create_empty_excel(["Ссылка", "Тип закупки", "Дата окончания", "Лот"], "lots.xlsx")
-    service = EdgeService(EdgeChromiumDriverManager().install())
-    driver = webdriver.Edge(service=service)
+  
+    service = SafariService()
+    driver = webdriver.Safari(service=service)
+
     for page in range(1, 4):
         url = f"https://www.goszakup.gov.kz/ru/search/lots?filter%5Bname%5D={lots}&count_record=100&page={page}"
         driver.get(url)
