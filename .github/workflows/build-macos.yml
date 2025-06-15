@@ -1,0 +1,47 @@
+name: Build macOS App
+
+on:
+  push:
+    tags:
+      - 'v*'  # сборка по тегу, например: v1.0
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install py2app create-dmg pandas selenium openpyxl webdriver-manager
+
+      - name: Build .app with py2app
+        run: |
+          python setup.py py2app
+
+      - name: Create .dmg
+        run: |
+          create-dmg \
+            --volname "ПарсерЗакупок" \
+            --window-pos 200 120 \
+            --window-size 500 300 \
+            --icon-size 100 \
+            --icon "dist/ПарсерЗакупок.app" 125 150 \
+            --hide-extension "ПарсерЗакупок.app" \
+            --app-drop-link 375 150 \
+            "ПарсерЗакупок.dmg" \
+            "dist/"
+
+      - name: Upload DMG artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ПарсерЗакупок
+          path: ПарсерЗакупок.dmg
