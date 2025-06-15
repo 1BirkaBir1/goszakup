@@ -3,8 +3,8 @@ name: Build macOS App
 on:
   push:
     tags:
-      - 'v*'  # сборка по тегу, например: v1.0
-  workflow_dispatch:
+      - 'v*'  # запуск при пуше тега, например v1.0
+  workflow_dispatch:  # запуск вручную из GitHub
 
 jobs:
   build:
@@ -32,18 +32,18 @@ jobs:
       - name: Create .dmg
         run: |
           create-dmg \
-          --volname "ParserZakupok" \
-          --window-pos 200 120 \
-          --window-size 500 300 \
-          --icon-size 100 \
-          --icon "dist/ParserZakupok.app" 125 150 \
-          --hide-extension "ParserZakupok.app" \
-          --app-drop-link 375 150 \
-          "ParserZakupok.dmg" \
-          "dist/"
+            --volname "ParserZakupok" \
+            --window-pos 200 120 \
+            --window-size 500 300 \
+            --icon-size 100 \
+            --icon dist/ParserZakupok.app 125 150 \
+            --hide-extension ParserZakupok.app \
+            --app-drop-link 375 150 \
+            ParserZakupok.dmg \
+            dist/
 
       - name: Upload DMG artifact
         uses: actions/upload-artifact@v4
         with:
           name: ParserZakupok
-          path: ParsekZakupok.dmg
+          path: ParserZakupok.dmg
