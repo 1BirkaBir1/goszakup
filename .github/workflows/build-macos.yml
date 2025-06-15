@@ -32,18 +32,18 @@ jobs:
       - name: Create .dmg
         run: |
           create-dmg \
-            --volname "ParserZakupok" \
-            --window-pos 200 120 \
-            --window-size 500 300 \
-            --icon-size 100 \
-            --icon "dist/ParserZakupok.app" 125 150 \
-            --hide-extension "ParserZakupok.app" \
-            --app-drop-link 375 150 \
-            "ParserZakupok.dmg" \
-            "dist/"
+          --volname "ParserZakupok" \
+          --window-pos 200 120 \
+          --window-size 500 300 \
+          --icon-size 100 \
+          --icon "dist/ParserZakupok.app" 125 150 \
+          --hide-extension "ParserZakupok.app" \
+          --app-drop-link 375 150 \
+          "ParserZakupok.dmg" \
+          "dist/"
 
       - name: Upload DMG artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ПарсерЗакупок
-          path: ПарсерЗакупок.dmg
+          name: ParserZakupok
+          path: ParsekZakupok.dmg
