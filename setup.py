@@ -5,7 +5,6 @@ DATA_FILES = []
 OPTIONS = {
     'argv_emulation': True,
     'packages': ['pandas', 'selenium', 'openpyxl', 'webdriver_manager'],
-    'iconfile': 'icon.icns',  # можно удалить, если нет иконки
 }
 
 setup(
